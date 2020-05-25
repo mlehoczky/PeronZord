@@ -4,7 +4,8 @@ let shotSpeed = 5;
 
 
 function setup() {
-  createCanvas(300, 500);
+  //createCanvas(300, 500);
+  createCanvas(windowWidth, windowHeight);
   frameRate(50);
   y = height * 2 / 3;
 }
@@ -22,13 +23,18 @@ function draw() {
   
   text(key, 33, 65); // Display last key pressed.
 
+  if (mouseIsPressed) {
+    if (millis() % 10 == 0) shots.push(s1.shoot(shotSpeed));
+  };
+
   shots.forEach(element => {
     element.moveForward();
   });
 
 } 
 
-function mouseClicked() {
+function mousePressed() {
   shots.push(s1.shoot(shotSpeed));
 };
+
 

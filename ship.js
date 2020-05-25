@@ -2,7 +2,7 @@
 function Ship(baseLength, shipLength, height, width) {
     this.baseLength = baseLength;
     this.shipLength = shipLength;
-    this.Yposition = height * 4 / 5;
+    this.Yposition = height * 5 / 6;
     this.Xposition = width/2 - baseLength/2; 
     this.vertexPositionLD = [this.Xposition, this.Yposition];
     this.vertexPositionLR = [this.Xposition + baseLength, this.Yposition];
