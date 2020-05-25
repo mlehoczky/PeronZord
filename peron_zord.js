@@ -35,6 +35,12 @@ function draw() {
 
 function mousePressed() {
   shots.push(s1.shoot(shotSpeed));
-};
+}
+
+function windowResized() {
+
+  resizeCanvas(windowWidth, windowHeight);
+
+}
 
 
