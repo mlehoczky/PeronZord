@@ -27,6 +27,11 @@ function draw() {
     if (millis() % 10 == 0) shots.push(s1.shoot(shotSpeed));
   };
 
+  if (touches.length > 0) {
+    if (millis() % 10 == 0) shots.push(s1.shoot(shotSpeed));
+  };
+
+
   shots.forEach(element => {
     element.moveForward();
   });
