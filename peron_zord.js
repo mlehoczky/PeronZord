@@ -1,6 +1,7 @@
 let y;
 let shots = [];
 let shotSpeed = 10;
+
 let lastTimeShot = 0;
 let shotDelay = 200;
 //let shotFrequency = 1.05;
