@@ -6,21 +6,42 @@ let lastTimeShot = 0;
 let shotDelay = 200;
 //let shotFrequency = 1.05;
 
+var backgroundImage;
+var y1 = 0;
+var y2;
+
+var scrollSpeed = 1;
+
+
 function preload() {
   soundFormats('ogg');
   pewSound = loadSound('assets/sound/pew');
+  backgroundImage = loadImage("assets/images/terrain2.jpg");
 }
 
 
 function setup() {
-  // createCanvas(300, 500);
-  createCanvas(windowWidth, windowHeight);
-  frameRate(50);
+  createCanvas(300, 500);
+  // createCanvas(windowWidth, windowHeight);
+  frameRate(30);
   y = height * 2 / 3;
+  y2 = height;
 }
 
 function draw() {
-  background(220);
+  //background(220);
+  image(backgroundImage, 0, y1, width, height);
+  image(backgroundImage, 0, y2, width, height);
+  
+  y1 -= scrollSpeed;
+  y2 -= scrollSpeed;
+  
+  if (y1 < -height){
+    y1 = height;
+  }
+  if (y2 < -height){
+    y2 = height;
+  }
 
   
   s1 = new Ship(12, 14, height, width);
