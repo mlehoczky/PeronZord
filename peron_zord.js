@@ -77,10 +77,10 @@ function mousePressed() {
   shots.push(s1.shoot(shotSpeed));
 }
 
-// function windowResized() {
+function windowResized() {
 
-//   resizeCanvas(windowWidth, windowHeight);
+  resizeCanvas(windowWidth, windowHeight);
 
-// }
+}
 
 
