@@ -1,14 +1,18 @@
 
-function Ship(baseLength, shipLength, height, width) {
+// function Ship(baseLength, shipLength, height, width) {
+function Ship(baseLength, shipLength) {
+
     this.baseLength = baseLength;
+    this.semiBaseLenth = baseLength / 2;
     this.shipLength = shipLength;
     this.Yposition = height * 5 / 6;
-    this.Xposition = width/2 - baseLength/2; 
-    this.vertexPositionLD = [this.Xposition, this.Yposition];
-    this.vertexPositionLR = [this.Xposition + baseLength, this.Yposition];
-    this.vertexPositionU = [this.Xposition + baseLength / 2, this.Yposition - shipLength];
+    this.Xposition = width/2 - this.semiBaseLenth; 
+    
     
     this.drawShip = function() {
+        this.vertexPositionLD = [this.Xposition - this.semiBaseLenth, this.Yposition];
+        this.vertexPositionLR = [this.Xposition + this.semiBaseLenth, this.Yposition];
+        this.vertexPositionU = [this.Xposition, this.Yposition - shipLength];
 
         triangle(this.vertexPositionLD[0], this.vertexPositionLD[1],
             this.vertexPositionLR[0], this.vertexPositionLR[1],
@@ -18,9 +22,9 @@ function Ship(baseLength, shipLength, height, width) {
 
     this.setX = function(x) {
         this.Xposition = x;
-        this.vertexPositionLD = [this.Xposition, this.Yposition];
-        this.vertexPositionLR = [this.Xposition + baseLength, this.Yposition];
-        this.vertexPositionU = [this.Xposition + baseLength / 2, this.Yposition - shipLength];
+        // this.vertexPositionLD = [this.Xposition, this.Yposition];
+        // this.vertexPositionLR = [this.Xposition + baseLength, this.Yposition];
+        // this.vertexPositionU = [this.Xposition + this.semiBaseLenth, this.Yposition - shipLength];
 
     };
 
@@ -34,19 +38,3 @@ function Ship(baseLength, shipLength, height, width) {
     };
 
 }
-
-function Shot(x, y, speed) {
-    this.x = x;
-    this.y = y;
-        strokeWeight(8);
-        point(x, this.y);
-        strokeWeight(1);
-    this.moveForward = function() {
-        this.y = this.y - speed;
-        strokeWeight(8);
-        point(x, this.y);
-        strokeWeight(1);
-    };
-}
-
-        
