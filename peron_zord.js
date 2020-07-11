@@ -1,20 +1,24 @@
 // let y;
 let shots = [];
+let shotsImpacted = [];
+let lastImpactedShotTime;
 let shotSpeed = 10;
 
 let lastTimeShot = 0;
+let now;
 let shotDelay = 200;
 //let shotFrequency = 1.05;
 
-var backgroundImage;
-var enemyImage;
+let backgroundImage;
+let enemyImage;
 
-var enemy;
-var y1;
-var y2;
-var s1;
+let enemy;
+let yBkground1;
+let yBkground2;
+let s1;
 
-var scrollSpeed = 1;
+
+let scrollSpeed = 1;
 
 
 function preload() {
@@ -31,38 +35,60 @@ function setup() {
   // createCanvas(windowWidth, windowHeight);
   frameRate(30);
   //y = height * 2 / 3;
-  y1 = 0;
-  y2 = height;
+  yBkground1 = 0;
+  yBkground2 = height;
 
   s1 = new Ship(12, 14);
   enemy = new Enemy(enemyImage, width/2, height/3);
+
+  enemy.setVulnerableAreas(39, 55, 257, 72); // wing spread
+  enemy.setVulnerableAreas(142, 26, 160, 200);  //major axis 
+  enemy.setVulnerableAreas(39, 54, 54, 158); // left cannon
+  enemy.setVulnerableAreas(244, 54, 257, 159); // right cannon
+
+
 }
 
 function draw() {
-
-  image(backgroundImage, 0, y1, width, height);
-  image(backgroundImage, 0, y2, width, height);
+  //background(0);
+  image(backgroundImage, 0, yBkground1, width, height);
+  image(backgroundImage, 0, yBkground2, width, height);
   
-  y1 += scrollSpeed;
-  y2 += scrollSpeed;
+  yBkground1 += scrollSpeed;
+  yBkground2 += scrollSpeed;
   
-  if (y1 > height){
-    y1 = -height;
+  if (yBkground1 > height){
+    yBkground1 = -height;
   }
-  if (y2 > height){
-    y2 = -height;
+  if (yBkground2 > height){
+    yBkground2 = -height;
   }
   
   s1.setX(mouseX);
   s1.setY(mouseY);
   s1.drawShip();
+
+  // enemy.update();
+  // enemy.show();
+  
+  
   enemy.update();
-  enemy.show();
+  // if (shots.length > 0) {
+  //   //console.log("no shots");
+  //   //for(let i = 0; i < shots.length; i++) {
+  //   // for(let i = shots.length - 1; i >= 0; i--) {
+  //   //   if (enemy.checkForHits(shots[i]) || shots[i].isLostInSpace()) {
+  //   //     shots[i].impactEnemy();
+  //   //     shots.shift();
+  //   //   }
+  //   // }
+  // }
+  
 
   
   text(key, 33, 65); // Display last key pressed.
   //text("lastTimeShot: " + lastTimeShot + "millis: " + millis(), 33, 65);
-  let now = millis();
+  now = millis();
 
   //if (mouseIsPressed && (millis() > lastTimeShot ** shotFrequency)) {
   if (mouseIsPressed && ((now - lastTimeShot) > shotDelay) ) {
@@ -76,26 +102,41 @@ function draw() {
   // };
 
 
-  shots.forEach(element => {
-    element.moveForward();
+  shots.forEach(shot => {
+    shot.moveForward();
+    if (enemy.checkForHits(shot)) {
+      //shot.impactEnemy();
+      shotsImpacted.push(shots.shift());
+      lastImpactedShotTime = millis();
+    }  
+    if(shot.isLostInSpace()) {
+      shots.shift();
+    }
   });
 
+  
 
+  enemy.show(now);
 
-
+  shotsImpacted.forEach(shot => {
+    shot.explode();
+    if ((now - lastImpactedShotTime) > 250) {
+      shotsImpacted.shift();
+    }
+  });
 
 } 
 
-function mousePressed() {
-  shots.push(s1.shoot(shotSpeed));
-}
+// function mousePressed() {
+//   shots.push(s1.shoot(shotSpeed));
+// }
 
 
 
-function windowResized() {
+// function windowResized() {
 
-  resizeCanvas(windowWidth, windowHeight);
+//   resizeCanvas(windowWidth, windowHeight);
 
-}
+// }
 
 

@@ -11,5 +11,24 @@ function Shot(x, y, speed) {
         point(this.x, this.y);
         pop();
     };
+
+    this.explode = function() {
+        push();
+        stroke(200, 100, 10, 180);
+        strokeWeight(35);
+        point(this.x, this.y);
+        pop();
+    };
+
+    this.getPosition = function() {
+        return {
+            x: this.x,
+            y: this.y
+        }
+    }
+
+    this.isLostInSpace = function() {
+        return this.y < 0;
+    }
 }
 

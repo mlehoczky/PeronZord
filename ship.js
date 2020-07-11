@@ -22,10 +22,6 @@ function Ship(baseLength, shipLength) {
 
     this.setX = function(x) {
         this.Xposition = x;
-        // this.vertexPositionLD = [this.Xposition, this.Yposition];
-        // this.vertexPositionLR = [this.Xposition + baseLength, this.Yposition];
-        // this.vertexPositionU = [this.Xposition + this.semiBaseLenth, this.Yposition - shipLength];
-
     };
 
     this.setY = function(y) {
@@ -34,7 +30,6 @@ function Ship(baseLength, shipLength) {
 
     this.shoot = function(speed) {
         return new Shot(this.Xposition + baseLength / 2, this.Yposition - shipLength, speed);
-
     };
 
 }
